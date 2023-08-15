@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysqldb:
@@ -31,6 +31,7 @@ services:
       - DB_PASSWORD=$DB_PASSWORD
       - DB_NAME=$DB_DATABASE
       - DB_PORT=$DB_PORT
+      - WAIT_HOSTS=mysqldb:$DB_PORT
     stdin_open: true
     tty: true
     networks:
@@ -48,7 +49,7 @@ services:
     networks:
       - frontend
 
-volumes: 
+volumes:
   db:
 
 networks:
