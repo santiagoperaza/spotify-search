@@ -35,6 +35,7 @@ export const searchArtist = async (artistName: string): Promise<Artist | unknown
       return {};
     }
   } catch (error) {
+    console.error(error);
     if (error.response?.status === 401) {
       token = await getAuth(); // TODO: call api again after refreshing the token
       throw new ApiError('401 Unauthorized', 401);
@@ -47,8 +48,8 @@ export const searchArtist = async (artistName: string): Promise<Artist | unknown
 const getAlbums = async (id: string): Promise<Album[]> => {
   let token = await getAuth();
   try {
-    const searchUrl = `artists/${id}/albums`;
-    const response = await api.get(searchUrl, 
+    const url = `artists/${id}/albums?include_groups=album&limit=50`; // TODO: parameterize limit
+    const response = await api.get(url, 
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -56,21 +57,44 @@ const getAlbums = async (id: string): Promise<Album[]> => {
       });
     const albums = response?.data?.items as Album[];
 
-    const results: Album[] = albums.map((result) => {
-      return {
-        id: result.id,
-        name: result.name,
-        release_year: +result.release_date?.split('-')[0],
-        images: result.images
-      }
-    })
-    return results;
+    const results: Album[] = await Promise.all(albums.map((result) => getAlbum(result.id)));
+    return results.sort((a, b) => b.popularity - a.popularity);
   } catch (error) {
+    console.error(error);
     if (error.response?.status === 401) {
       token = await getAuth(); // TODO: call api again after refreshing the token
       throw new ApiError('401 Unauthorized', 401);
     } else {
       throw new ApiError(`Failed getting albums of artist with id ${id}`, error.response?.status);
+    }
+  }
+}
+
+const getAlbum = async (id: string): Promise<Album> => {
+  let token = await getAuth();
+  try {
+    const response = await api.get(`albums/${id}`, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    const album = response?.data as Album;
+    const result: Album = {
+      id: album.id,
+      name: album.name,
+      release_year: +album.release_date?.split('-')[0],
+      images: album.images,
+      popularity: album.popularity
+    }
+    return result;
+  } catch (error) {
+    console.error(error);
+    if (error.response?.status === 401) {
+      token = await getAuth(); // TODO: call api again after refreshing the token
+      throw new ApiError('401 Unauthorized', 401);
+    } else {
+      throw new ApiError(`Failed getting album with id ${id}`, error.response?.status);
     }
   }
 }
