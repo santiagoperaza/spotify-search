@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:5.7.24
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DB_DATABASE
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+    ports:
+      - $DB_PORT:$DB_PORT
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+
+  app:
+    depends_on:
+      - mysqldb
+    build:
+      context: ./server/
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $PORT:$PORT
+    environment:
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_DATABASE
+      - DB_PORT=$DB_PORT
+    stdin_open: true
+    tty: true
+    networks:
+      - backend
+      - frontend
+
+  client:
+    depends_on:
+      - app
+    build:
+      context: ./client
+    ports:
+      - $VITE_REACT_APP_PORT:$VITE_REACT_APP_PORT
+    tty: true
+    networks:
+      - frontend
+
+volumes: 
+  db:
+
+networks:
+  backend:
+  frontend:
