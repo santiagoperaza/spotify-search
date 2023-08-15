@@ -1,7 +1,7 @@
 import { QueryFunction } from "@tanstack/react-query";
 import { Track } from "./APIResponsesTypes";
 
-const API_URL = import.meta.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_REACT_APP_API_URL || 'http://localhost:3000/api';
 
 const fetchAlbumTracks: QueryFunction<Track[], ["tracks", string]> = async ({
   queryKey,
