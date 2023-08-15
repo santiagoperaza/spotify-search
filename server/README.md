@@ -5,7 +5,9 @@ REST API developed in Node.js + TypeScript integrated with Spotify API
 ### Prerequisites:
 
 - It is required to have client credentials to interact with Spotify API, [please see the guidance to get them](https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow).
-Once you have them, set `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` environment variables with your account values, or [add them to the env file located in the server implementation](./server/.env).
+  Once you have them, set `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` environment variables with your account values, or [add them to the env file located in the server implementation](./server/.env).
+
+- In order to save search records it is required to install MySQL locally and update `DB_HOST` to `localhost` on `.env` file.
 
 ### Steps to run the application:
 
@@ -18,6 +20,7 @@ This will start the server on http://localhost:3000/
 Note: env file is used because it is a test project but it should not be used in production to store credentials.
 
 Additional scripts:
+
 - npm run lint
 
 ### List of API endpoints
