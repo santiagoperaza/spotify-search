@@ -1,0 +1,25 @@
+{
+   "ts-node": {
+      "compilerOptions": {
+         "allowSyntheticDefaultImports": true,
+         "lib": ["ES2022"],
+         "module": "ES2022",
+         "moduleResolution": "node",
+         "target": "ES2022"
+       }
+   },
+   "compilerOptions": {
+      "lib": [
+         "es5",
+         "es6"
+      ],
+      "esModuleInterop": true,
+      "target": "es2017",
+      "module": "ES2022",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true
+   }
+}
