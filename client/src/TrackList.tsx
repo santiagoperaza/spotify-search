@@ -30,21 +30,25 @@ const TrackList = () => {
         release_year={album.release_year}
       />
       <table>
-        <tr>
-          <th>Track</th>
-          <th>Song</th>
-          <th>Time</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Song</th>
+            <th>Time</th>
+          </tr>
+        </thead>
         {!albumTracks.length ? (
           <h2>No Tracks Found</h2>
           ) : (
             albumTracks.map((track) => {
               return (
-                <tr>
-                  <td>{track.track_number}</td>
-                  <td>{track.name}</td>
-                  <td>{moment(track.duration_ms).format('m:ss')}</td>
-                </tr>
+                <tbody key={track.id}>
+                  <tr>
+                    <td>{track.track_number}</td>
+                    <td>{track.name}</td>
+                    <td>{moment(track.duration_ms).format('m:ss')}</td>
+                  </tr>
+                </tbody>
               );
             })
             )}
