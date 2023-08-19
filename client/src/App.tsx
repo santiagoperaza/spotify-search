@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Search from "./Search";
-import TrackList from "./TrackList";
+import Search from "./components/Search";
+import TrackList from "./components/TrackList";
 
 const queryClient = new QueryClient({
   defaultOptions: {

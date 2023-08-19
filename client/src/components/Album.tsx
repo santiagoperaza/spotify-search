@@ -1,6 +1,6 @@
 import { AlbumImage, Track } from "./APIResponsesTypes";
 import { Link } from "react-router-dom";
-import albumCover from './assets/default-album-cover.png';
+import albumCover from '../assets/default-album-cover.png';
 
 interface IProps {
   artist?: string;

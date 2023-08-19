@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAlbumTracks } from "./fetchAlbum";
+import { fetchAlbumTracks } from "../fetchAlbum";
 import { useParams, useNavigate, useLocation} from "react-router-dom";
 import moment from "moment";
 import LoadingDots from "./LoadingDots";

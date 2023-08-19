@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Results from "./Results";
-import fetchArtist from "./fetchArtist";
+import fetchArtist from "../fetchArtist";
 import { useLocation } from 'react-router-dom';
 import LoadingDots from "./LoadingDots";
 
